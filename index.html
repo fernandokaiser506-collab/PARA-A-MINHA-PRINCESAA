@@ -156,6 +156,68 @@ body {
     border: 3px solid #e73c7e;
 }
 
+/* Corazones decorativos alrededor de la tarjeta */
+.card::before,
+.card::after {
+    content: '❤️';
+    position: absolute;
+    font-size: 2rem;
+    animation: floatHeart 3s ease-in-out infinite;
+}
+
+.card::before {
+    top: -20px;
+    left: 20px;
+    animation-delay: 0s;
+}
+
+.card::after {
+    top: -20px;
+    right: 20px;
+    animation-delay: 1s;
+}
+
+@keyframes floatHeart {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+}
+
+/* Corazones decorativos en las esquinas */
+.heart {
+    position: absolute;
+    font-size: 1.5rem;
+    animation: floatDecorative 4s ease-in-out infinite;
+}
+
+.heart-1 {
+    top: -15px;
+    left: 30px;
+    animation-delay: 0s;
+}
+
+.heart-2 {
+    top: -15px;
+    right: 30px;
+    animation-delay: 0.5s;
+}
+
+.heart-3 {
+    bottom: -15px;
+    left: 30px;
+    animation-delay: 1s;
+}
+
+.heart-4 {
+    bottom: -15px;
+    right: 30px;
+    animation-delay: 1.5s;
+}
+
+@keyframes floatDecorative {
+    0%, 100% { transform: translateY(0px) scale(1); opacity: 0.8; }
+    50% { transform: translateY(-20px) scale(1.1); opacity: 1; }
+}
+
 .texto-carta {
     text-align: left;
     font-size: 1.05rem;
@@ -208,6 +270,11 @@ body {
 
 <div class="modal" id="modal">
     <div class="card">
+        <div class="heart heart-1">💗</div>
+        <div class="heart heart-2">💕</div>
+        <div class="heart heart-3">❤️</div>
+        <div class="heart heart-4">💖</div>
+        
         <h2 style="font-family:'Dancing Script'; font-size: 2.5rem; color: #e73c7e;">Minha Princesa 👑</h2>
         
         <div class="timer-box" id="contador">Calculando nossa conexão...</div>
