@@ -3,213 +3,194 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Minha Princesa Distante 👑✈️</title>
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+<title>Para Minha Princesa 👑</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-/* --- ESTILOS GENERALES --- */
+/* --- ANIMACIÓN DE FONDO --- */
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
 *{box-sizing:border-box;margin:0;padding:0}
 
-body{
-    font-family:'Quicksand',sans-serif;
-    height:100vh;
-    overflow:hidden;
-    /* Un degradado que parece cielo de atardecer */
-    background:linear-gradient(135deg, #2c3e50, #4ca1af); 
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    color: white;
+body {
+    font-family: 'Quicksand', sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/* --- PANTALLA DE INICIO --- */
-.start-screen{
-    position:fixed;
-    inset:0;
-    background:rgba(20, 30, 48, 0.98);
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    z-index:20;
-    transition: opacity 1s ease;
+/* --- PORTADA MEJORADA (GLASSMORPHISM) --- */
+.start-screen {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.2); /* Oscurece un poco para resaltar el vidrio */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 20;
+    transition: all 1s ease-in-out;
 }
 
-.start-screen h1{
-    font-family:'Dancing Script',cursive;
-    font-size:3.5rem;
-    background: -webkit-linear-gradient(#eee, #333);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0px 0px 10px rgba(255,255,255,0.3);
-    margin-bottom:20px;
+.glass-card {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 30px;
+    padding: 50px 30px;
     text-align: center;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    width: 85%;
+    max-width: 450px;
 }
 
-.start-btn{
-    padding:15px 40px;
-    font-size:1.2rem;
-    border:none;
-    border-radius:50px;
-    background:linear-gradient(45deg, #ff416c, #ff4b2b);
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
-    box-shadow:0 0 20px rgba(255, 75, 43, 0.5);
-    transition:transform 0.3s;
-    animation: pulseBtn 2s infinite;
+.start-screen h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 3.5rem;
+    color: white;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.2);
 }
 
-@keyframes pulseBtn {
-    0% {transform: scale(1);}
-    50% {transform: scale(1.05);}
-    100% {transform: scale(1);}
+.start-screen p {
+    color: rgba(255,255,255,0.9);
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    font-weight: 300;
+}
+
+.start-btn {
+    padding: 18px 45px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 50px;
+    background: white;
+    color: #e73c7e;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: all 0.4s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.start-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(255,255,255,0.6);
+    background: #fce4ec;
 }
 
 /* --- MAPA Y AVIÓN --- */
 .map-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     width: 100%;
-    margin: 20px 0;
+    margin: 25px 0;
     position: relative;
-    padding: 0 20px;
 }
 
 .flag {
-    width: 60px;
-    height: 60px;
+    width: 55px;
+    height: 55px;
     border-radius: 50%;
-    object-fit: cover;
     border: 3px solid white;
-    box-shadow: 0 0 15px rgba(255,255,255,0.5);
-    z-index: 2;
 }
 
-.route-line {
-    position: absolute;
-    top: 50%;
-    left: 50px;
-    right: 50px;
-    height: 2px;
-    background: rgba(255,255,255,0.3);
-    border-bottom: 2px dashed rgba(255,255,255,0.8);
-    z-index: 1;
-}
-
-.plane {
-    position: absolute;
-    top: 50%;
-    left: 50px;
+.plane-animation {
     font-size: 24px;
-    transform: translate(-50%, -50%);
-    animation: fly 4s ease-in-out infinite alternate;
-    z-index: 3;
-    text-shadow: 0 0 10px white;
+    animation: fly 3s ease-in-out infinite alternate;
 }
 
 @keyframes fly {
-    0% { left: 55px; transform: translate(-50%, -50%) rotate(0deg); }
-    100% { left: calc(100% - 55px); transform: translate(-50%, -50%) rotate(0deg); }
+    from { transform: translateX(-20px) rotate(0deg); }
+    to { transform: translateX(20px) rotate(5deg); }
 }
 
-/* --- ELEMENTOS DE FONDO --- */
-.stars span{
-    position:absolute;
-    width:2px;
-    height:2px;
-    background:white;
-    border-radius:50%;
-    animation:twinkle 3s infinite alternate;
-}
-@keyframes twinkle{from{opacity:0.2}to{opacity:1}}
-
-/* --- MODAL / CARTA --- */
-.modal{
-    position:fixed;
-    inset:0;
-    display:none; 
-    justify-content:center;
-    align-items:center;
-    background:rgba(0,0,0,0.8);
-    backdrop-filter:blur(8px);
-    z-index:10;
+/* --- ESTRELLAS Y CORAZONES --- */
+.floating-elements span {
+    position: absolute;
+    color: white;
+    opacity: 0.6;
+    pointer-events: none;
+    animation: floatAnim 8s linear infinite;
 }
 
-.card{
-    background:rgba(255, 255, 255, 0.9);
-    width:90%;
-    max-width:500px;
-    max-height:85vh;
-    border-radius:15px;
-    padding:30px;
-    text-align:center;
-    overflow-y:auto;
-    color: #333;
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
-    border: 1px solid rgba(255,255,255,0.5);
+@keyframes floatAnim {
+    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    50% { opacity: 0.6; }
+    100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
 }
 
-.titulo-carta{
-    font-family:'Dancing Script',cursive;
-    font-size:2.5rem;
-    color:#c0392b;
-    margin-bottom: 10px;
+/* --- MODAL DE LA CARTA --- */
+.modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(10px);
+    z-index: 30;
 }
 
-.timer-box {
-    background: #ecf0f1;
-    padding: 10px;
-    border-radius: 8px;
-    margin: 15px 0;
-    color: #2c3e50;
-    font-size: 0.85rem;
-    border-left: 4px solid #c0392b;
+.card {
+    background: white;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 25px;
+    padding: 40px 30px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
 }
 
 .texto-carta {
     text-align: left;
-    font-size: 1.05rem;
-    line-height: 1.6;
-    color: #2c3e50;
-    margin-top: 15px;
-    min-height: 150px;
-    white-space: pre-wrap; /* Respeta los saltos de línea */
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #333;
+    margin-top: 20px;
+    font-weight: 400;
 }
 
-.cursor {
-    display: inline-block;
-    width: 2px;
-    background-color: #c0392b;
-    animation: blink 1s infinite;
+.timer-box {
+    font-size: 0.8rem;
+    color: #e73c7e;
+    margin: 15px 0;
+    font-weight: bold;
+    text-transform: uppercase;
 }
-@keyframes blink { 50% { opacity: 0; } }
-
-.cerrar-btn{
-    margin-top:20px;
-    padding:10px 25px;
-    border-radius:20px;
-    border:none;
-    background:#c0392b;
-    color:white;
-    cursor:pointer;
-    transition:0.3s;
-}
-.cerrar-btn:hover{background:#a93226;}
-
 </style>
 </head>
 <body>
 
 <div class="start-screen" id="startScreen">
-    <h1>A distância não é nada... 🌍</h1>
-    <p>...quando alguém significa tudo.</p>
-    <br>
-    <button class="start-btn" onclick="abrirCarta()">Ler Carta 💌</button>
+    <div class="glass-card">
+        <h1>Para você... 🌹</h1>
+        <p>Un pequeño pedazo del meu coração atravessando fronteras.</p>
+        
+        <div class="map-container">
+            <img src="https://flagcdn.com/w160/br.png" class="flag">
+            <div class="plane-animation">✈️</div>
+            <img src="https://flagcdn.com/w160/co.png" class="flag">
+        </div>
+
+        <button class="start-btn" onclick="abrirCarta()">Abrir Surpresa ❤️</button>
+    </div>
 </div>
 
-<div class="stars" id="stars"></div>
+<div class="floating-elements" id="floating"></div>
 
 <audio id="musica" loop>
     <source src="https://files.catbox.moe/l0ex26.mp3" type="audio/mpeg">
@@ -217,94 +198,49 @@ body{
 
 <div class="modal" id="modal">
     <div class="card">
-        <div class="titulo-carta">Minha Princesa 👑</div>
+        <h2 style="font-family:'Dancing Script'; font-size: 2.5rem; color: #e73c7e;">Minha Princesa 👑</h2>
         
-        <div class="map-container">
-            <img src="https://flagcdn.com/w80/br.png" class="flag" alt="Brasil">
-            <div class="route-line"></div>
-            <div class="plane">✈️</div>
-            <img src="https://flagcdn.com/w80/co.png" class="flag" alt="Colombia">
-        </div>
-
-        <div class="timer-box" id="contador">
-            Conectados há: Calculando...
-        </div>
-
+        <div class="timer-box" id="contador">Calculando nossa conexão...</div>
+        
         <div class="texto-carta">
-            <span id="maquinaEscribir"></span><span class="cursor">|</span>
+            <span id="maquinaEscribir"></span>
         </div>
         
-        <p style="margin-top: 20px; font-weight: bold; color: #c0392b;">
-            Teu Paladino ⚔️
-        </p>
-
-        <button class="cerrar-btn" onclick="cerrarCarta()">Guardar ❤️</button>
+        <button onclick="cerrarCarta()" style="margin-top:25px; border:none; background:#e73c7e; color:white; padding:10px 25px; border-radius:20px; cursor:pointer;">Fechar com Amor</button>
     </div>
 </div>
 
 <script>
-// --- CONFIGURACIÓN ---
-const fechaInicio = new Date(2025, 9, 28); // AÑO, MES (0-11), DÍA
+const fechaInicio = new Date(2023, 1, 14); // Cambia esto por tu fecha real
 
-// TEXTO ESPECIAL PARA RELAÇÃO A DISTÂNCIA (Portugués)
-const mensajeCarta = `MEU AMORRRRR,
-
-
-Hoje escrevo com o coração aberto…
-
-Desde que você entrou na minha vida, tudo ganhou cor, sentido e profundidade.
-
-Você não é apenas alguém que eu amo… você é a escolha que faço todos os dias.
-
+const mensajeCarta = `Meu amor,
 
 Dizem que os olhos são a janela da alma, mas eu me apaixonei pela sua alma antes mesmo de olhar nos seus olhos pessoalmente.
 
-Sei que a distância às vezes dói. A vontade de te abraçar, de sentir seu cheiro e segurar sua mão é imensa... Mas sabe de uma coisa? O que sentimos é maior que qualquer oceano, maior que qualquer fronteira.
+A distância é apenas um teste para ver quão longe o amor pode viajar. Eu te espero na Colômbia, mas meu pensamento mora com você no Brasil.
 
-Você está no Brasil, eu na Colômbia, mas meu coração vive aí com você, batendo no mesmo ritmo que o seu.
-
-Eu te prometo: cada dia de espera valerá a pena no segundo em que a gente finalmente se encontrar. A distância impede o toque, mas não o nosso amor.
-
-EU TE AMOOOO, HOJEEE, AMANHÃ E ATÉ O DIAA DOO NOSSOO ABRAÇOOOOO!!!!.`;
-
-// --- LÓGICA ---
+Cada dia que passa é um dia a menos para o nosso primeiro abraço. Eu te amo com todo o meu ser.`;
 
 function abrirCarta() {
-    const startScreen = document.getElementById('startScreen');
-    const modal = document.getElementById('modal');
-    const audio = document.getElementById('musica');
-
-    startScreen.style.opacity = '0';
+    document.getElementById('startScreen').style.opacity = '0';
     setTimeout(() => {
-        startScreen.style.display = 'none';
-        modal.style.display = 'flex';
-        
-        audio.volume = 0.1;
-        audio.play().catch(e => console.log("Audio bloq"));
-        let fade = setInterval(() => {
-            if(audio.volume < 0.8) audio.volume += 0.05;
-            else clearInterval(fade);
-        }, 300);
-
-        escribirTexto();
+        document.getElementById('startScreen').style.display = 'none';
+        document.getElementById('modal').style.display = 'flex';
+        const audio = document.getElementById('musica');
+        audio.volume = 0.4;
+        audio.play();
+        escribir();
     }, 1000);
 }
 
-function cerrarCarta() {
-    document.getElementById('modal').style.display = 'none';
-    document.getElementById('startScreen').style.display = 'flex';
-    setTimeout(() => document.getElementById('startScreen').style.opacity = '1', 100);
-    document.getElementById('musica').pause();
-}
+function cerrarCarta() { location.reload(); }
 
-let i = 0;
-function escribirTexto() {
-    if (i < mensajeCarta.length) {
-        document.getElementById("maquinaEscribir").innerHTML += mensajeCarta.charAt(i);
-        i++;
-        setTimeout(escribirTexto, 50);
-    } else {
-        document.querySelector(".cursor").style.display = "none";
+let x = 0;
+function escribir() {
+    if (x < mensajeCarta.length) {
+        document.getElementById("maquinaEscribir").innerHTML += mensajeCarta.charAt(x);
+        x++;
+        setTimeout(escribir, 50);
     }
 }
 
@@ -312,23 +248,20 @@ function actualizarContador() {
     const ahora = new Date();
     const dif = ahora - fechaInicio;
     const dias = Math.floor(dif / (1000 * 60 * 60 * 24));
-    const horas = Math.floor((dif % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const min = Math.floor((dif % (1000 * 60 * 60)) / (1000 * 60));
-    const seg = Math.floor((dif % (1000 * 60)) / 1000);
-    
-    document.getElementById("contador").innerHTML = 
-        `Nossas almas unidas há: ${dias}d ${horas}h ${min}m ${seg}s ❤️`;
+    document.getElementById("contador").innerHTML = `Conectados há ${dias} días pelo coração ❤️`;
 }
 setInterval(actualizarContador, 1000);
 
-// Estrellas
-const starsContainer = document.getElementById("stars");
-for(let k=0; k<100; k++){
-    let s = document.createElement("span");
-    s.style.top = Math.random()*100+"vh";
-    s.style.left = Math.random()*100+"vw";
-    s.style.animationDuration = (Math.random()*3+2)+"s";
-    starsContainer.appendChild(s);
+// Elementos flotantes
+const container = document.getElementById('floating');
+const icons = ['❤', '⭐', '✨', '🌸'];
+for(let i=0; i<30; i++) {
+    let el = document.createElement('span');
+    el.innerHTML = icons[Math.floor(Math.random()*icons.length)];
+    el.style.left = Math.random()*100 + "vw";
+    el.style.animationDuration = (Math.random()*5 + 5) + "s";
+    el.style.fontSize = (Math.random()*20 + 10) + "px";
+    container.appendChild(el);
 }
 </script>
 
