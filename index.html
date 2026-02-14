@@ -211,15 +211,27 @@ body {
 </div>
 
 <script>
-const fechaInicio = new Date(2023, 1, 14); // Cambia esto por tu fecha real
+const fechaInicio = new Date(2025, 9, 28); // Cambia esto por tu fecha real
 
-const mensajeCarta = `Meu amor,
+const mensajeCarta = `MEU AMORRRRR,
+
+
+Hoje escrevo com o coração aberto…
+
+Desde que você entrou na minha vida, tudo ganhou cor, sentido e profundidade.
+
+Você não é apenas alguém que eu amo… você é a escolha que faço todos os dias.
+
 
 Dizem que os olhos são a janela da alma, mas eu me apaixonei pela sua alma antes mesmo de olhar nos seus olhos pessoalmente.
 
-A distância é apenas um teste para ver quão longe o amor pode viajar. Eu te espero na Colômbia, mas meu pensamento mora com você no Brasil.
+Sei que a distância às vezes dói. A vontade de te abraçar, de sentir seu cheiro e segurar sua mão é imensa... Mas sabe de uma coisa? O que sentimos é maior que qualquer oceano, maior que qualquer fronteira.
 
-Cada dia que passa é um dia a menos para o nosso primeiro abraço. Eu te amo com todo o meu ser.`;
+Você está no Brasil, eu na Colômbia, mas meu coração vive aí com você, batendo no mesmo ritmo que o seu.
+
+Eu te prometo: cada dia de espera valerá a pena no segundo em que a gente finalmente se encontrar. A distância impede o toque, mas não o nosso amor.
+
+EU TE AMOOOO, HOJEEE, AMANHÃ E ATÉ O DIAA DOO NOSSOO ABRAÇOOOOO!!!!.`;
 
 function abrirCarta() {
     document.getElementById('startScreen').style.opacity = '0';
@@ -248,7 +260,11 @@ function actualizarContador() {
     const ahora = new Date();
     const dif = ahora - fechaInicio;
     const dias = Math.floor(dif / (1000 * 60 * 60 * 24));
-    document.getElementById("contador").innerHTML = `Conectados há ${dias} días pelo coração ❤️`;
+    const horas = Math.floor((dif % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const min = Math.floor((dif % (1000 * 60 * 60)) / (1000 * 60));
+    const seg = Math.floor((dif % (1000 * 60)) / 1000);
+    
+    document.getElementById("contador").innerHTML = `Nossas almas unidas há: ${dias}d ${horas}h ${min}m ${seg}s ❤️`;
 }
 setInterval(actualizarContador, 1000);
 
