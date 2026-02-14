@@ -310,6 +310,55 @@ body {
         transform: scale(1);
     }
 }
+
+/* Mensaje del Abrazo */
+.abrazo-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(135deg, #ff69b4, #ff1493);
+    color: white;
+    padding: 30px 40px;
+    border-radius: 20px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
+    z-index: 1000;
+    box-shadow: 0 10px 40px rgba(255, 20, 147, 0.6);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    max-width: 90%;
+    animation: abrazoMessageAppear 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    pointer-events: none;
+    line-height: 1.8;
+}
+
+@keyframes abrazoMessageAppear {
+    0% {
+        transform: translate(-50%, -50%) scale(0) rotate(-10deg);
+        opacity: 0;
+    }
+    50% {
+        filter: drop-shadow(0 0 20px rgba(255, 20, 147, 0.8));
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1) rotate(0deg);
+        opacity: 1;
+        filter: drop-shadow(0 0 30px rgba(255, 20, 147, 0.4));
+    }
+}
+
+@keyframes abrazoMessageDisappear {
+    0% {
+        transform: translate(-50%, -50%) scale(1) rotate(0deg);
+        opacity: 1;
+        filter: drop-shadow(0 0 30px rgba(255, 20, 147, 0.4));
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(0) rotate(10deg);
+        opacity: 0;
+    }
+}
 </style>
 </head>
 <body>
@@ -414,6 +463,13 @@ function crearPetalos() {
 function darAbrazo() {
     const btn = event.target;
     btn.innerHTML = '💕 ¡Recibido! 💕';
+    btn.disabled = true;
+    
+    // Crear mensaje del abrazo
+    const messageBox = document.createElement('div');
+    messageBox.className = 'abrazo-message';
+    messageBox.innerHTML = '💌 Você acabou de receber um abraço da Colômbia 🇨🇴<br><br>Guarde-o até que eu possa lhe dar um pessoalmente. ❤️';
+    document.body.appendChild(messageBox);
     
     // Crear efecto de brillo alrededor del botón
     for(let i = 0; i < 20; i++) {
@@ -450,8 +506,17 @@ function darAbrazo() {
     }
     
     setTimeout(() => {
+        messageBox.style.animation = 'abrazoMessageDisappear 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards';
+    }, 3000);
+    
+    setTimeout(() => {
+        messageBox.remove();
+    }, 3800);
+    
+    setTimeout(() => {
         btn.innerHTML = 'Dar um Abraço Mágico 💕';
-    }, 2000);
+        btn.disabled = false;
+    }, 4000);
 }
 
 function cerrarCarta() { location.reload(); }
