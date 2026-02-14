@@ -243,6 +243,73 @@ body {
     border-radius: 10px;
     letter-spacing: 1px;
 }
+
+/* Pétalos y Confeti */
+.petal {
+    position: fixed;
+    pointer-events: none;
+    font-size: 1.5rem;
+}
+
+@keyframes petalFall {
+    to {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Botón de Abrazo */
+.abrazo-btn {
+    margin-top: 20px;
+    padding: 15px 35px;
+    border: none;
+    background: linear-gradient(135deg, #ff69b4, #ff1493);
+    color: white;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(255, 20, 147, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.abrazo-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(255, 20, 147, 0.6);
+}
+
+.abrazo-btn:active {
+    animation: abrazoAnimation 0.6s ease;
+}
+
+@keyframes abrazoAnimation {
+    0% { transform: scale(1); }
+    25% { transform: scale(0.95) rotate(-5deg); }
+    50% { transform: scale(1.05); }
+    75% { transform: scale(0.95) rotate(5deg); }
+    100% { transform: scale(1); }
+}
+
+/* Efecto de revelado mejorado con glow */
+#maquinaEscribir {
+    display: inline;
+    animation: charReveal 0.1s ease-out;
+}
+
+@keyframes charReveal {
+    0% {
+        opacity: 0;
+        text-shadow: 0 0 10px #ff1493;
+        transform: scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        text-shadow: 0 0 20px rgba(231, 60, 126, 0.3);
+        transform: scale(1);
+    }
+}
 </style>
 </head>
 <body>
@@ -283,32 +350,34 @@ body {
             <span id="maquinaEscribir"></span>
         </div>
         
-        <button onclick="cerrarCarta()" style="margin-top:25px; border:none; background:#e73c7e; color:white; padding:10px 25px; border-radius:20px; cursor:pointer;">Fechar com Amor</button>
+        <button class="abrazo-btn" onclick="darAbrazo()">Dar um Abraço Mágico 💕</button>
+        
+        <button onclick="cerrarCarta()" style="margin-top:15px; border:none; background:#e73c7e; color:white; padding:10px 25px; border-radius:20px; cursor:pointer;">Fechar com Amor</button>
     </div>
 </div>
 
 <script>
 const fechaInicio = new Date(2025, 9, 28); // Cambia esto por tu fecha real
 
-const mensajeCarta = `MEU AMORRRRR,
+const mensajeCarta = `MEU AMORRRRR 💫,
 
 
-Hoje escrevo com o coração aberto…
+Hoje escrevo com o coração aberto… 🌹
 
-Desde que você entrou na minha vida, tudo ganhou cor, sentido e profundidade.
+Desde que você entrou na minha vida, tudo ganhou cor, sentido e profundidade. ✨
 
-Você não é apenas alguém que eu amo… você é a escolha que faço todos os dias.
+Você não é apenas alguém que eu amo… você é a escolha que faço todos os dias. 👑
 
 
-Dizem que os olhos são a janela da alma, mas eu me apaixonei pela sua alma antes mesmo de olhar nos seus olhos pessoalmente.
+Dizem que os olhos são a janela da alma, mas eu me apaixonei pela sua alma antes mesmo de olhar nos seus olhos pessoalmente. 💕
 
-Sei que a distância às vezes dói. A vontade de te abraçar, de sentir seu cheiro e segurar sua mão é imensa... Mas sabe de uma coisa? O que sentimos é maior que qualquer oceano, maior que qualquer fronteira.
+Sei que a distância às vezes dói. ✈️ A vontade de te abraçar, de sentir seu cheiro e segurar sua mão é imensa... Mas sabe de uma coisa? O que sentimos é maior que qualquer oceano, maior que qualquer fronteira. 🌍
 
-Você está no Brasil, eu na Colômbia, mas meu coração vive aí com você, batendo no mesmo ritmo que o seu.
+Você está no Brasil 🇧🇷, eu na Colômbia 🇨🇴, mas meu coração vive aí com você, batendo no mesmo ritmo que o seu. 💗
 
-Eu te prometo: cada dia de espera valerá a pena no segundo em que a gente finalmente se encontrar. A distância impede o toque, mas não o nosso amor.
+Eu te prometo: cada dia de espera valerá a pena no segundo em que a gente finalmente se encontrar. A distância impede o toque, mas não o nosso amor. 🌸
 
-EU TE AMOOOO, HOJE, AMANHÃ E ATÉ O DIA DO NOSSO ABRAÇO!!!!.`;
+EU TE AMOOOO, HOJE, AMANHÃ E ATÉ O DIA DO NOSSO ABRAÇO!!!! 💖🌹✨`;
 
 function abrirCarta() {
     document.getElementById('startScreen').style.opacity = '0';
@@ -318,8 +387,71 @@ function abrirCarta() {
         const audio = document.getElementById('musica');
         audio.volume = 0.4;
         audio.play();
+        crearPetalos();
         escribir();
     }, 1000);
+}
+
+function crearPetalos() {
+    const petalsIcons = ['🌹', '💗', '🌸', '💕', '✨', '💖'];
+    const body = document.body;
+    
+    for(let i = 0; i < 50; i++) {
+        const petal = document.createElement('div');
+        petal.className = 'petal';
+        petal.innerHTML = petalsIcons[Math.floor(Math.random() * petalsIcons.length)];
+        petal.style.left = Math.random() * 100 + 'vw';
+        petal.style.top = '-30px';
+        petal.style.animationDuration = (Math.random() * 3 + 2) + 's';
+        petal.style.animation = 'petalFall ' + (Math.random() * 3 + 2) + 's linear forwards';
+        petal.style.opacity = Math.random() * 0.7 + 0.3;
+        body.appendChild(petal);
+        
+        setTimeout(() => petal.remove(), (Math.random() * 3 + 2) * 1000);
+    }
+}
+
+function darAbrazo() {
+    const btn = event.target;
+    btn.innerHTML = '💕 ¡Recibido! 💕';
+    
+    // Crear efecto de brillo alrededor del botón
+    for(let i = 0; i < 20; i++) {
+        const particle = document.createElement('div');
+        particle.style.position = 'fixed';
+        particle.style.left = btn.getBoundingClientRect().left + btn.offsetWidth/2 + 'px';
+        particle.style.top = btn.getBoundingClientRect().top + btn.offsetHeight/2 + 'px';
+        particle.innerHTML = '💗';
+        particle.style.fontSize = '1.5rem';
+        particle.style.pointerEvents = 'none';
+        particle.style.animation = 'particleFloat 1s ease-out forwards';
+        document.body.appendChild(particle);
+        
+        const angle = (i / 20) * Math.PI * 2;
+        const velocity = Math.random() * 5 + 3;
+        const vx = Math.cos(angle) * velocity;
+        const vy = Math.sin(angle) * velocity;
+        
+        let x = btn.getBoundingClientRect().left + btn.offsetWidth/2;
+        let y = btn.getBoundingClientRect().top + btn.offsetHeight/2;
+        
+        const interval = setInterval(() => {
+            x += vx;
+            y += vy;
+            particle.style.left = x + 'px';
+            particle.style.top = y + 'px';
+            particle.style.opacity = 1 - (performance.now() % 1000) / 1000;
+        }, 10);
+        
+        setTimeout(() => {
+            clearInterval(interval);
+            particle.remove();
+        }, 1000);
+    }
+    
+    setTimeout(() => {
+        btn.innerHTML = 'Dar um Abraço Mágico 💕';
+    }, 2000);
 }
 
 function cerrarCarta() { location.reload(); }
@@ -327,9 +459,12 @@ function cerrarCarta() { location.reload(); }
 let x = 0;
 function escribir() {
     if (x < mensajeCarta.length) {
-        document.getElementById("maquinaEscribir").innerHTML += mensajeCarta.charAt(x);
+        const charSpan = document.createElement('span');
+        charSpan.textContent = mensajeCarta.charAt(x);
+        charSpan.style.animation = 'charReveal 0.15s ease-out';
+        document.getElementById("maquinaEscribir").appendChild(charSpan);
         x++;
-        setTimeout(escribir, 50);
+        setTimeout(escribir, 40);
     }
 }
 
