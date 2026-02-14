@@ -3,265 +3,324 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Minha Princesa 👑</title>
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+<title>Minha Princesa Distante 👑✈️</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
+/* --- ESTILOS GENERALES --- */
 *{box-sizing:border-box;margin:0;padding:0}
 
 body{
     font-family:'Quicksand',sans-serif;
     height:100vh;
     overflow:hidden;
+    /* Un degradado que parece cielo de atardecer */
+    background:linear-gradient(135deg, #2c3e50, #4ca1af); 
     display:flex;
     justify-content:center;
     align-items:center;
-    background:linear-gradient(135deg,#fce4ec,#f8bbd0);
+    color: white;
 }
 
-/* Pantalla inicial */
+/* --- PANTALLA DE INICIO --- */
 .start-screen{
     position:fixed;
     inset:0;
-    background:linear-gradient(135deg,#f8bbd0,#ec407a);
+    background:rgba(20, 30, 48, 0.98);
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
-    z-index:10;
-    text-align:center;
-    color:white;
+    z-index:20;
+    transition: opacity 1s ease;
 }
 
 .start-screen h1{
     font-family:'Dancing Script',cursive;
     font-size:3.5rem;
+    background: -webkit-linear-gradient(#eee, #333);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0px 0px 10px rgba(255,255,255,0.3);
     margin-bottom:20px;
-    text-shadow:0 0 15px rgba(255,255,255,0.8);
-    letter-spacing:2px;
-}
-
-.start-screen p{
-    font-family:'Playfair Display',serif;
-    font-size:1.2rem;
-    margin-bottom:30px;
-    letter-spacing:1px;
+    text-align: center;
 }
 
 .start-btn{
-    padding:15px 35px;
-    font-size:1.1rem;
+    padding:15px 40px;
+    font-size:1.2rem;
     border:none;
-    border-radius:30px;
-    background:white;
-    color:#ec407a;
+    border-radius:50px;
+    background:linear-gradient(45deg, #ff416c, #ff4b2b);
+    color:white;
     font-weight:bold;
     cursor:pointer;
-    transition:.4s;
-    box-shadow:0 0 15px rgba(255,255,255,0.6);
+    box-shadow:0 0 20px rgba(255, 75, 43, 0.5);
+    transition:transform 0.3s;
+    animation: pulseBtn 2s infinite;
 }
 
-.start-btn:hover{
-    transform:scale(1.1);
-    box-shadow:0 0 25px rgba(255,255,255,1);
+@keyframes pulseBtn {
+    0% {transform: scale(1);}
+    50% {transform: scale(1.05);}
+    100% {transform: scale(1);}
 }
 
-/* Corazones flotando */
-.hearts span{
-    position:absolute;
-    color:#ff4da6;
-    animation:float 8s linear infinite;
+/* --- MAPA Y AVIÓN --- */
+.map-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin: 20px 0;
+    position: relative;
+    padding: 0 20px;
 }
 
-@keyframes float{
-    0%{transform:translateY(100vh);opacity:0}
-    50%{opacity:1}
-    100%{transform:translateY(-10vh);opacity:0}
+.flag {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid white;
+    box-shadow: 0 0 15px rgba(255,255,255,0.5);
+    z-index: 2;
 }
 
-/* Estrellas */
+.route-line {
+    position: absolute;
+    top: 50%;
+    left: 50px;
+    right: 50px;
+    height: 2px;
+    background: rgba(255,255,255,0.3);
+    border-bottom: 2px dashed rgba(255,255,255,0.8);
+    z-index: 1;
+}
+
+.plane {
+    position: absolute;
+    top: 50%;
+    left: 50px;
+    font-size: 24px;
+    transform: translate(-50%, -50%);
+    animation: fly 4s ease-in-out infinite alternate;
+    z-index: 3;
+    text-shadow: 0 0 10px white;
+}
+
+@keyframes fly {
+    0% { left: 55px; transform: translate(-50%, -50%) rotate(0deg); }
+    100% { left: calc(100% - 55px); transform: translate(-50%, -50%) rotate(0deg); }
+}
+
+/* --- ELEMENTOS DE FONDO --- */
 .stars span{
     position:absolute;
-    width:3px;
-    height:3px;
+    width:2px;
+    height:2px;
     background:white;
     border-radius:50%;
     animation:twinkle 3s infinite alternate;
 }
+@keyframes twinkle{from{opacity:0.2}to{opacity:1}}
 
-@keyframes twinkle{
-    from{opacity:0.3}
-    to{opacity:1}
-}
-
-/* Modal */
+/* --- MODAL / CARTA --- */
 .modal{
     position:fixed;
     inset:0;
-    display:flex;
+    display:none; 
     justify-content:center;
     align-items:center;
-    background:rgba(0,0,0,.7);
-    backdrop-filter:blur(10px);
-    opacity:0;
-    pointer-events:none;
-    transition:.6s;
-}
-
-.modal.active{
-    opacity:1;
-    pointer-events:auto;
+    background:rgba(0,0,0,0.8);
+    backdrop-filter:blur(8px);
+    z-index:10;
 }
 
 .card{
-    background:white;
-    padding:35px 25px;
-    border-radius:25px;
-    max-width:600px;
+    background:rgba(255, 255, 255, 0.9);
+    width:90%;
+    max-width:500px;
     max-height:85vh;
-    overflow-y:auto;
+    border-radius:15px;
+    padding:30px;
     text-align:center;
-    animation:fadeIn 1s ease;
-    box-shadow:0 0 25px rgba(236,64,122,0.6);
+    overflow-y:auto;
+    color: #333;
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255,255,255,0.5);
 }
 
-@keyframes fadeIn{
-    from{transform:translateY(40px);opacity:0}
-    to{transform:translateY(0);opacity:1}
+.titulo-carta{
+    font-family:'Dancing Script',cursive;
+    font-size:2.5rem;
+    color:#c0392b;
+    margin-bottom: 10px;
 }
 
-.nombre{
-    font-size:3rem;
-    color:#c2185b;
-    margin-bottom:15px;
+.timer-box {
+    background: #ecf0f1;
+    padding: 10px;
+    border-radius: 8px;
+    margin: 15px 0;
+    color: #2c3e50;
+    font-size: 0.85rem;
+    border-left: 4px solid #c0392b;
 }
 
-.pulse{
-    font-size:40px;
-    animation:pulse 1s infinite;
+.texto-carta {
+    text-align: left;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #2c3e50;
+    margin-top: 15px;
+    min-height: 150px;
+    white-space: pre-wrap; /* Respeta los saltos de línea */
 }
 
-@keyframes pulse{
-    0%{transform:scale(1)}
-    50%{transform:scale(1.3)}
-    100%{transform:scale(1)}
+.cursor {
+    display: inline-block;
+    width: 2px;
+    background-color: #c0392b;
+    animation: blink 1s infinite;
 }
-
-.texto{
-    font-size:1.15rem;
-    line-height:1.9;
-    color:#4a0b74;
-    font-weight:600;
-    margin-top:20px;
-}
+@keyframes blink { 50% { opacity: 0; } }
 
 .cerrar-btn{
-    margin-top:25px;
+    margin-top:20px;
     padding:10px 25px;
+    border-radius:20px;
     border:none;
-    border-radius:25px;
-    background:#ec407a;
+    background:#c0392b;
     color:white;
-    font-weight:bold;
     cursor:pointer;
-    transition:.3s;
+    transition:0.3s;
 }
+.cerrar-btn:hover{background:#a93226;}
 
-.cerrar-btn:hover{
-    transform:scale(1.1);
-}
 </style>
 </head>
-
 <body>
 
 <div class="start-screen" id="startScreen">
-    <h1>Para: Minha Princesa 👑💞</h1>
-    <p>De: Teu Paladino da Alma ⚔️✨</p>
-    <button class="start-btn" onclick="iniciar()">Toque aqui antes de ler ❤️</button>
+    <h1>A distância não é nada... 🌍</h1>
+    <p>...quando alguém significa tudo.</p>
+    <br>
+    <button class="start-btn" onclick="abrirCarta()">Ler Carta 💌</button>
 </div>
 
-<div class="hearts" id="hearts"></div>
 <div class="stars" id="stars"></div>
 
-<audio id="audioCarta">
+<audio id="musica" loop>
     <source src="https://files.catbox.moe/l0ex26.mp3" type="audio/mpeg">
 </audio>
 
 <div class="modal" id="modal">
     <div class="card">
-        <div class="nombre">Minha Princesa 👑💞</div>
-
-        <div>
-            <img src="https://flagcdn.com/w80/br.png">
-            <span class="pulse">❤️</span>
-            <img src="https://flagcdn.com/w80/co.png">
+        <div class="titulo-carta">Minha Princesa 👑</div>
+        
+        <div class="map-container">
+            <img src="https://flagcdn.com/w80/br.png" class="flag" alt="Brasil">
+            <div class="route-line"></div>
+            <div class="plane">✈️</div>
+            <img src="https://flagcdn.com/w80/co.png" class="flag" alt="Colombia">
         </div>
 
-        <div style="font-size:50px;margin-top:15px;" class="pulse">💖</div>
-
-        <div class="texto">
-            Hoje escrevo com o coração aberto…<br><br>
-
-            Desde que você entrou na minha vida, tudo ganhou cor, sentido e profundidade.<br><br>
-
-            Você não é apenas alguém que eu amo… você é a escolha que faço todos os dias.<br><br>
-
-            A gratidão profunda tem a qualidade mágica de transformar o que atualmente percebemos como carência em um sentimento de abundância...<br><br>
-
-            Com você, tudo é mais intenso, mais verdadeiro e mais bonito.<br><br>
-
-            Minha Princesa, EU TE AMOOOOOOOOOOOO, com propósito, com lealdade e com todo o meu coração!!!!.<br><br>
-
-            Sempre teu,<br>
-            <strong>Teu Paladino da Alma ⚔️👑</strong>
+        <div class="timer-box" id="contador">
+            Conectados há: Calculando...
         </div>
 
-        <button class="cerrar-btn" onclick="cerrar()">Fechar Carta</button>
+        <div class="texto-carta">
+            <span id="maquinaEscribir"></span><span class="cursor">|</span>
+        </div>
+        
+        <p style="margin-top: 20px; font-weight: bold; color: #c0392b;">
+            Teu Paladino ⚔️
+        </p>
+
+        <button class="cerrar-btn" onclick="cerrarCarta()">Guardar ❤️</button>
     </div>
 </div>
 
 <script>
-// corazones
-const heartsContainer=document.getElementById("hearts");
-for(let i=0;i<40;i++){
-    let heart=document.createElement("span");
-    heart.innerHTML="❤";
-    heart.style.left=Math.random()*100+"vw";
-    heart.style.fontSize=(15+Math.random()*25)+"px";
-    heart.style.animationDuration=(5+Math.random()*5)+"s";
-    heartsContainer.appendChild(heart);
+// --- CONFIGURACIÓN ---
+const fechaInicio = new Date(2023, 1, 14); // AÑO, MES (0-11), DÍA
+
+// TEXTO ESPECIAL PARA RELACIÓN A DISTANCIA (Portugués)
+const mensajeCarta = `Meu amor, 
+
+Dizem que os olhos são a janela da alma, mas eu me apaixonei pela sua alma antes mesmo de olhar nos seus olhos pessoalmente.
+
+Sei que a distância às vezes dói. A vontade de te abraçar, de sentir seu cheiro e segurar sua mão é imensa... Mas sabe de uma coisa? O que sentimos é maior que qualquer oceano, maior que qualquer fronteira.
+
+Você está no Brasil, eu na Colômbia, mas meu coração vive aí com você, batendo no mesmo ritmo que o seu.
+
+Eu te prometo: cada dia de espera valerá a pena no segundo em que a gente finalmente se encontrar. A distância impede o toque, mas não o nosso amor.
+
+Eu te amo, hoje, amanhã e até o dia do nosso abraço.`;
+
+// --- LÓGICA ---
+
+function abrirCarta() {
+    const startScreen = document.getElementById('startScreen');
+    const modal = document.getElementById('modal');
+    const audio = document.getElementById('musica');
+
+    startScreen.style.opacity = '0';
+    setTimeout(() => {
+        startScreen.style.display = 'none';
+        modal.style.display = 'flex';
+        
+        audio.volume = 0.1;
+        audio.play().catch(e => console.log("Audio bloq"));
+        let fade = setInterval(() => {
+            if(audio.volume < 0.8) audio.volume += 0.05;
+            else clearInterval(fade);
+        }, 300);
+
+        escribirTexto();
+    }, 1000);
 }
 
-// estrellas
-const starsContainer=document.getElementById("stars");
-for(let i=0;i<60;i++){
-    let star=document.createElement("span");
-    star.style.top=Math.random()*100+"vh";
-    star.style.left=Math.random()*100+"vw";
-    star.style.animationDuration=(2+Math.random()*3)+"s";
-    starsContainer.appendChild(star);
+function cerrarCarta() {
+    document.getElementById('modal').style.display = 'none';
+    document.getElementById('startScreen').style.display = 'flex';
+    setTimeout(() => document.getElementById('startScreen').style.opacity = '1', 100);
+    document.getElementById('musica').pause();
 }
 
-function iniciar(){
-    document.getElementById("startScreen").style.display="none";
-    document.getElementById("modal").classList.add("active");
-    const audio=document.getElementById("audioCarta");
-    audio.volume=0;
-    audio.play();
+let i = 0;
+function escribirTexto() {
+    if (i < mensajeCarta.length) {
+        document.getElementById("maquinaEscribir").innerHTML += mensajeCarta.charAt(i);
+        i++;
+        setTimeout(escribirTexto, 50);
+    } else {
+        document.querySelector(".cursor").style.display = "none";
+    }
+}
+
+function actualizarContador() {
+    const ahora = new Date();
+    const dif = ahora - fechaInicio;
+    const dias = Math.floor(dif / (1000 * 60 * 60 * 24));
+    const horas = Math.floor((dif % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const min = Math.floor((dif % (1000 * 60 * 60)) / (1000 * 60));
+    const seg = Math.floor((dif % (1000 * 60)) / 1000);
     
-    // subir volumen poco a poco
-    let fade=setInterval(()=>{
-        if(audio.volume<0.7){
-            audio.volume+=0.05;
-        }else{
-            clearInterval(fade);
-        }
-    },300);
+    document.getElementById("contador").innerHTML = 
+        `Nossas almas unidas há: ${dias}d ${horas}h ${min}m ${seg}s ❤️`;
 }
+setInterval(actualizarContador, 1000);
 
-function cerrar(){
-    document.getElementById("modal").classList.remove("active");
+// Estrellas
+const starsContainer = document.getElementById("stars");
+for(let k=0; k<100; k++){
+    let s = document.createElement("span");
+    s.style.top = Math.random()*100+"vh";
+    s.style.left = Math.random()*100+"vw";
+    s.style.animationDuration = (Math.random()*3+2)+"s";
+    starsContainer.appendChild(s);
 }
 </script>
 
