@@ -145,31 +145,41 @@ body {
 }
 
 .card {
-    background: white;
+    background: linear-gradient(135deg, #ffeef8 0%, #fff0f5 50%, #ffe4f0 100%);
     width: 90%;
     max-width: 500px;
     border-radius: 25px;
-    padding: 40px 30px;
+    padding: 50px 40px;
     text-align: center;
     position: relative;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    border: 3px solid #e73c7e;
 }
 
 .texto-carta {
     text-align: left;
-    font-size: 1.1rem;
-    line-height: 1.7;
-    color: #333;
-    margin-top: 20px;
-    font-weight: 400;
+    font-size: 1.05rem;
+    line-height: 2;
+    color: #4a0b74;
+    margin-top: 25px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    background: rgba(255, 255, 255, 0.6);
+    padding: 25px;
+    border-radius: 15px;
+    border-left: 5px solid #e73c7e;
 }
 
 .timer-box {
-    font-size: 0.8rem;
-    color: #e73c7e;
-    margin: 15px 0;
+    font-size: 0.9rem;
+    color: #c2185b;
+    margin: 20px 0;
     font-weight: bold;
     text-transform: uppercase;
+    background: rgba(231, 60, 126, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    letter-spacing: 1px;
 }
 </style>
 </head>
@@ -231,7 +241,7 @@ Você está no Brasil, eu na Colômbia, mas meu coração vive aí com você, ba
 
 Eu te prometo: cada dia de espera valerá a pena no segundo em que a gente finalmente se encontrar. A distância impede o toque, mas não o nosso amor.
 
-EU TE AMOOOO, HOJEEE, AMANHÃ E ATÉ O DIAA DOO NOSSOO ABRAÇOOOOO!!!!.`;
+EU TE AMOOOO, HOJE, AMANHÃ E ATÉ O DIA DO NOSSO ABRAÇO!!!!.`;
 
 function abrirCarta() {
     document.getElementById('startScreen').style.opacity = '0';
