@@ -39,34 +39,109 @@ body {
     align-items: center;
     z-index: 20;
     transition: all 1s ease-in-out;
+    overflow: hidden;
+}
+
+/* Luces de fondo animadas */
+.start-screen::before,
+.start-screen::after {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 105, 180, 0.3) 0%, transparent 70%);
+    animation: floatLight 8s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.start-screen::before {
+    top: -150px;
+    left: -150px;
+    animation-delay: 0s;
+}
+
+.start-screen::after {
+    bottom: -150px;
+    right: -150px;
+    animation-delay: 4s;
+}
+
+@keyframes floatLight {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(50px, 50px); }
 }
 
 .glass-card {
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 30px;
-    padding: 50px 30px;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 40px;
+    padding: 60px 50px;
     text-align: center;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    box-shadow: 0 15px 50px rgba(255, 20, 147, 0.3), 0 0 60px rgba(255, 105, 180, 0.2);
     width: 85%;
-    max-width: 450px;
+    max-width: 500px;
+    position: relative;
+    z-index: 10;
+    animation: cardFloatIn 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes cardFloatIn {
+    0% {
+        transform: translateY(50px) scale(0.9);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
 }
 
 .start-screen h1 {
     font-family: 'Dancing Script', cursive;
-    font-size: 3.5rem;
-    color: white;
-    margin-bottom: 10px;
-    text-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+    font-size: 4rem;
+    background: linear-gradient(135deg, #ff1493, #ff69b4, #ffb6de);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 5px;
+    text-shadow: 0 0 30px rgba(255, 20, 147, 0.3);
+    animation: titleGlow 3s ease-in-out infinite;
 }
 
-.start-screen p {
-    color: rgba(255,255,255,0.9);
-    font-size: 1.1rem;
-    margin-bottom: 30px;
-    font-weight: 300;
+@keyframes titleGlow {
+    0%, 100% { filter: drop-shadow(0 0 20px rgba(255, 20, 147, 0.4)); }
+    50% { filter: drop-shadow(0 0 40px rgba(255, 20, 147, 0.8)); }
+}
+
+.romantic-messages {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: white;
+    margin: 15px 0 30px 0;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.romantic-messages span {
+    animation: messageRotate 12s ease-in-out infinite;
+    text-shadow: 0 0 20px rgba(255, 20, 147, 0.6);
+}
+
+.romantic-messages span:nth-child(1) { animation-delay: 0s; }
+.romantic-messages span:nth-child(2) { animation-delay: 4s; }
+.romantic-messages span:nth-child(3) { animation-delay: 8s; }
+
+@keyframes messageRotate {
+    0% { opacity: 0; transform: translateY(10px); }
+    10% { opacity: 1; transform: translateY(0); }
+    35% { opacity: 1; transform: translateY(0); }
+    45% { opacity: 0; transform: translateY(-10px); }
+    100% { opacity: 0; transform: translateY(-10px); }
 }
 
 .start-btn {
@@ -74,20 +149,41 @@ body {
     font-size: 1.2rem;
     border: none;
     border-radius: 50px;
-    background: white;
-    color: #e73c7e;
+    background: linear-gradient(135deg, #ff1493, #ff69b4);
+    color: white;
     font-weight: 600;
     cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    transition: all 0.4s ease;
+    box-shadow: 0 8px 25px rgba(255, 20, 147, 0.5);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
+    position: relative;
+    overflow: hidden;
+}
+
+.start-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+    transition: left 0.4s ease;
 }
 
 .start-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 25px rgba(255,255,255,0.6);
-    background: #fce4ec;
+    transform: scale(1.08) translateY(-3px);
+    box-shadow: 0 15px 40px rgba(255, 20, 147, 0.7), 0 0 30px rgba(255, 105, 180, 0.4);
+}
+
+.start-btn:hover::before {
+    left: 100%;
+}
+
+.start-btn:active {
+    transform: scale(0.95);
+    box-shadow: 0 8px 25px rgba(255, 20, 147, 0.5);
 }
 
 /* --- MAPA Y AVIÓN --- */
@@ -105,16 +201,42 @@ body {
     height: 55px;
     border-radius: 50%;
     border: 3px solid white;
+    box-shadow: 0 0 20px rgba(255, 20, 147, 0.5);
+    animation: flagBounce 2s ease-in-out infinite;
+}
+
+.flag:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.flag:nth-child(3) {
+    animation-delay: 0.5s;
+}
+
+@keyframes flagBounce {
+    0%, 100% { 
+        transform: scale(1) translateY(0);
+        filter: drop-shadow(0 0 20px rgba(255, 20, 147, 0.5));
+    }
+    50% { 
+        transform: scale(1.1) translateY(-10px);
+        filter: drop-shadow(0 0 30px rgba(255, 20, 147, 0.8));
+    }
 }
 
 .plane-animation {
     font-size: 24px;
-    animation: fly 3s ease-in-out infinite alternate;
+    animation: fly 4s cubic-bezier(0.42, 0, 0.58, 1) infinite;
+    filter: drop-shadow(0 0 10px rgba(255, 105, 180, 0.5));
 }
 
 @keyframes fly {
-    from { transform: translateX(-20px) rotate(0deg); }
-    to { transform: translateX(20px) rotate(5deg); }
+    0%, 100% { 
+        transform: translateX(-20px) rotate(0deg) translateY(0);
+    }
+    50% { 
+        transform: translateX(20px) rotate(5deg) translateY(-10px);
+    }
 }
 
 /* --- ESTRELLAS Y CORAZONES --- */
@@ -366,7 +488,12 @@ body {
 <div class="start-screen" id="startScreen">
     <div class="glass-card">
         <h1>Para você... 🌹</h1>
-        <p>Un pequeño pedazo del meu coração atravessando fronteras.</p>
+        
+        <div class="romantic-messages">
+            <span>Te amo com todo o meu coração 💕</span>
+            <span>Você é minha razão de sonhar ✨</span>
+            <span>A distância não pode parar nosso amor 💫</span>
+        </div>
         
         <div class="map-container">
             <img src="https://flagcdn.com/w160/br.png" class="flag">
